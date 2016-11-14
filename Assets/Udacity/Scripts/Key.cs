@@ -5,30 +5,34 @@ using UnityEngine;
 public class Key : MonoBehaviour 
 {
     //Create a reference to the KeyPoofPrefab and Door
-	public GameObject keyObject;
-	public GameObject doorObject;
+	public Key keyObject;
+	public Door doorObject;
 
 	void Start() {
 		// Set the animation speed to 0.3
-		Animator keyAnimator = gameObject.GetComponent<Animator> ();
+		Animator keyAnimator = GetComponent<Animator> ();
 		keyAnimator.speed = 0.3f;	
 
 		// Set the key color to magenta
-		Renderer objectRenderer = gameObject.GetComponentInChildren<Renderer> ();
-		objectRenderer.material.color = Color.magenta;
+		GetComponent<Renderer> ().material.color = Color.magenta;
 	}	
-
-	void Update()
-	{
-		//Bonus: Key Animation
-	}
 		
 	public void OnKeyClicked()
 	{
         // Instatiate the KeyPoof Prefab where this key is located
-        // Make sure the poof animates vertically
-        // Call the Unlock() method on the Door
+        
+		// Call the Unlock() method on the Door
+		doorObject.Unlock();
+
         // Destroy the key. Check the Unity documentation on how to use Destroy
-		Debug.Log("Key was clicked");
+		//Destroy (gameObject, 2);
+	}
+		
+	public void OnPointerEnter() {
+		GetComponent<Renderer> ().material.color = Color.green;	// Set key color when mouse hovers over
+	}
+
+	public void OnPointerExit() {
+		GetComponent<Renderer> ().material.color = Color.magenta;	// Set color back to magenta when mouse is not hovered over
 	}
 }
