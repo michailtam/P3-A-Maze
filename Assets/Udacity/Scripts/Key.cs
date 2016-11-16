@@ -19,13 +19,11 @@ public class Key : MonoBehaviour
 		
 	public void OnKeyClicked()
 	{
-        // Instatiate the KeyPoof Prefab where this key is located
-        
-		// Call the Unlock() method on the Door
-		doorObject.Unlock();
+		// User collects the key (hasKey at UserBehaviour script set to true)
+		Camera.main.GetComponent<UserBehaviour>().TakeKey();
 
         // Destroy the key. Check the Unity documentation on how to use Destroy
-		//Destroy (gameObject, 2);
+		Destroy (gameObject);
 	}
 		
 	public void OnPointerEnter() {
