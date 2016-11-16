@@ -24,7 +24,7 @@ public class Door : MonoBehaviour
     void Update() {
         // If the door is unlocked and it is not fully raised. Animate the door raising up
 		// Check if door has unlocked and then play the animation open door
-		if(!audioSource.isPlaying && !locked) {		
+		if(!audioSource.isPlaying && !locked) {	
 			gameObject.transform.parent.GetComponent<Animator> ().SetTrigger ("open");	// Play open door animation	
 		}
     }
@@ -40,6 +40,7 @@ public class Door : MonoBehaviour
 			audioSource.clip = audioClips [0];	
 			audioSource.Play ();	// Play audio clip when door is unlocked
 			locked = false;
+			GetComponent<Renderer> ().material.color = defautlDoorColor;
 		} else {
 			audioSource.clip = audioClips [1];	
 			audioSource.Play ();	// Play audio clip when door is locked

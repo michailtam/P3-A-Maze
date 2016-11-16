@@ -12,7 +12,6 @@ public class UserBehaviour : MonoBehaviour {
 
 	public void TakeKey() {
 		hasKey = true;	// User has collected the key
-		Debug.Log("KEY TAKEN: " + hasKey);
 	}
 
 	public bool GetKey() {

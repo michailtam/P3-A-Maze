@@ -7,6 +7,7 @@ public class Key : MonoBehaviour
     //Create a reference to the KeyPoofPrefab and Door
 	public Key keyObject;
 	public Door doorObject;
+	public AudioClip audioClip;
 
 	void Start() {
 		// Set the animation speed to 0.3
@@ -23,14 +24,15 @@ public class Key : MonoBehaviour
 		Camera.main.GetComponent<UserBehaviour>().TakeKey();
 
         // Destroy the key. Check the Unity documentation on how to use Destroy
+		AudioSource.PlayClipAtPoint(audioClip, transform.position);
 		Destroy (gameObject);
 	}
 		
-	public void OnPointerEnter() {
+	public void OnKeyEnter() {
 		GetComponent<Renderer> ().material.color = Color.green;	// Set key color when mouse hovers over
 	}
 
-	public void OnPointerExit() {
+	public void OnKeyExit() {
 		GetComponent<Renderer> ().material.color = Color.magenta;	// Set color back to magenta when mouse is not hovered over
 	}
 }
