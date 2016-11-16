@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Door : MonoBehaviour 
 {
-	public GameObject keyObject;
 	public AudioClip[] audioClips;
 	public AudioSource audioSource;
 
@@ -31,20 +30,23 @@ public class Door : MonoBehaviour
 
     public void Unlock()
     {
-		//keyObject.GetComponent<AudioSource>().Play ();
+		// Check if user stands neer and in front of the door
+		float distance = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
 
-		// Check if the user has the key found and collected
-		UserBehaviour user = Camera.main.GetComponent<UserBehaviour>();
-		if (user.GetKey ()) {
-			// open door
-			audioSource.clip = audioClips [0];	
-			audioSource.Play ();	// Play audio clip when door is unlocked
-			locked = false;
-			GetComponent<Renderer> ().material.color = defautlDoorColor;
-		} else {
-			audioSource.clip = audioClips [1];	
-			audioSource.Play ();	// Play audio clip when door is locked
-		}
+		if (distance <= 10.0f) {
+			// Check if the user has the key found and collected
+			UserBehaviour user = Camera.main.GetComponent<UserBehaviour> ();
+			if (user.GetKey ()) {
+				// open door
+				audioSource.clip = audioClips [0];	
+				audioSource.Play ();	// Play audio clip when door is unlocked
+				locked = false;
+				GetComponent<Renderer> ().material.color = defautlDoorColor;
+			} else {
+				audioSource.clip = audioClips [1];	
+				audioSource.Play ();	// Play audio clip when door is locked
+			}
+		} 
     }
 
 	private void OpenDoor() {
@@ -52,7 +54,13 @@ public class Door : MonoBehaviour
 	}
 
 	public void OnEnterDoor() {
-		GetComponent<Renderer> ().material.color = Color.yellow;
+
+		// Check if user stands neer and in front of the door
+		float distance = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
+
+		if (distance <= 10.0f) {
+			GetComponent<Renderer> ().material.color = Color.yellow;
+		}
 	}
 
 	public void OnExitDoor() {

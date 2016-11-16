@@ -20,16 +20,26 @@ public class Key : MonoBehaviour
 		
 	public void OnKeyClicked()
 	{
-		// User collects the key (hasKey at UserBehaviour script set to true)
-		Camera.main.GetComponent<UserBehaviour>().TakeKey();
+		// Check if user stands neer and in front of the key
+		float distance = Mathf.Abs(transform.position.x - Camera.main.transform.position.x);
 
-        // Destroy the key. Check the Unity documentation on how to use Destroy
-		AudioSource.PlayClipAtPoint(audioClip, transform.position);
-		Destroy (gameObject);
+		if (distance <= 10.0f) {
+			// User collects the key (hasKey at UserBehaviour script set to true)
+			Camera.main.GetComponent<UserBehaviour> ().TakeKey ();
+
+			// Destroy the key. Check the Unity documentation on how to use Destroy
+			AudioSource.PlayClipAtPoint (audioClip, transform.position);
+			Destroy (gameObject);
+		}
 	}
 		
 	public void OnKeyEnter() {
-		GetComponent<Renderer> ().material.color = Color.green;	// Set key color when mouse hovers over
+		// Check if user stands neer and in front of the door
+		float distance = Mathf.Abs(transform.position.x - Camera.main.transform.position.x);
+
+		if (distance <= 10.0f) {
+			GetComponent<Renderer> ().material.color = Color.green;	// Set key color when mouse hovers over
+		}
 	}
 
 	public void OnKeyExit() {

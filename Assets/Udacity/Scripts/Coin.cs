@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour 
 {
-    //Create a reference to the CoinPoofPrefab
+	public AudioClip audioClip;
+
+	public void Start() {
+		GetComponent<Animator> ().speed = 0.5f;
+	}
 
     public void OnCoinClicked() {
-        // Instantiate the CoinPoof Prefab where this coin is located
-        // Make sure the poof animates vertically
-        // Destroy this coin. Check the Unity documentation on how to use Destroy
+		// Play audio when collected and then destroy the gameobject (coin)
+		AudioSource.PlayClipAtPoint(audioClip, transform.position);
+		Destroy (gameObject);
     }
-
 }
