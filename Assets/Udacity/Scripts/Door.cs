@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Door : MonoBehaviour 
 {
+	public GameObject signPost;
 	public AudioClip[] audioClips;
 	public AudioSource audioSource;
 
 	private Color defautlDoorColor;
+	private bool doorAnimationFinished = false;
 
     // Create a boolean value called "locked" that can be checked in Update() 
 	private bool locked = true;
@@ -25,6 +27,18 @@ public class Door : MonoBehaviour
 		// Check if door has unlocked and then play the animation open door
 		if(!audioSource.isPlaying && !locked) {	
 			gameObject.transform.parent.GetComponent<Animator> ().SetTrigger ("open");	// Play open door animation	
+
+			// Check if door animation has finished
+			if(gameObject.transform.parent.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("OpenDoorAnimation")
+				&& !doorAnimationFinished) {
+				// Instantiate the signpost in the temple
+				Instantiate(signPost, new Vector3(
+					signPost.transform.position.x, 
+					signPost.transform.position.y, 
+					signPost.transform.position.z), 
+					Quaternion.identity);	
+				doorAnimationFinished = true;
+			}
 		}
     }
 
@@ -32,7 +46,6 @@ public class Door : MonoBehaviour
     {
 		// Check if user stands neer and in front of the door
 		float distance = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
-
 		if (distance <= 10.0f) {
 			// Check if the user has the key found and collected
 			UserBehaviour user = Camera.main.GetComponent<UserBehaviour> ();
@@ -49,15 +62,10 @@ public class Door : MonoBehaviour
 		} 
     }
 
-	private void OpenDoor() {
-		
-	}
-
 	public void OnEnterDoor() {
 
 		// Check if user stands neer and in front of the door
 		float distance = Mathf.Abs(transform.position.z - Camera.main.transform.position.z);
-
 		if (distance <= 10.0f) {
 			GetComponent<Renderer> ().material.color = Color.yellow;
 		}

@@ -22,7 +22,6 @@ public class Key : MonoBehaviour
 	{
 		// Check if user stands neer and in front of the key
 		float distance = Mathf.Abs(transform.position.x - Camera.main.transform.position.x);
-
 		if (distance <= 10.0f) {
 			// User collects the key (hasKey at UserBehaviour script set to true)
 			Camera.main.GetComponent<UserBehaviour> ().TakeKey ();
@@ -34,9 +33,8 @@ public class Key : MonoBehaviour
 	}
 		
 	public void OnKeyEnter() {
-		// Check if user stands neer and in front of the door
+		// Check if user stands neer and in front of the key
 		float distance = Mathf.Abs(transform.position.x - Camera.main.transform.position.x);
-
 		if (distance <= 10.0f) {
 			GetComponent<Renderer> ().material.color = Color.green;	// Set key color when mouse hovers over
 		}
