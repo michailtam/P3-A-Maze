@@ -6,18 +6,27 @@ public class GameScore : MonoBehaviour {
 
 	public Canvas ui;
 
-	private int score = 0;
-	private Text scoreText;
+	private const float DELAY = 3.0f;	// Delay time for showing score
+	private int score = 0;		// Initial score
+	private Text scoreField;
 
 	// Use this for initialization
 	void Start () {
-		scoreText = ui.GetComponentInChildren<Text> ();
-		scoreText.text = "Coins: 0/24";
+		scoreField = ui.GetComponentInChildren<Text> ();
+		scoreField.text = "Coins: 0/24";
+		StartCoroutine (ShowScore ());
 	}
 
 	// Update score when a coin was collected
 	public void SetScore() {
+		scoreField.enabled = true;
 		score++;	// Add one coin to score
-		scoreText.text = "Coins: " + score + "/24";
+		scoreField.text = "Coins: " + score + "/24";
+		StartCoroutine (ShowScore());
+	}
+
+	IEnumerator ShowScore () {
+		yield return new WaitForSeconds(DELAY);	// Show score for 3 seconds
+		scoreField.enabled = false;
 	}
 }

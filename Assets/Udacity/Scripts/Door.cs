@@ -32,11 +32,7 @@ public class Door : MonoBehaviour
 			if(gameObject.transform.parent.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("OpenDoorAnimation")
 				&& !doorAnimationFinished) {
 				// Instantiate the signpost in the temple
-				Instantiate(signPost, new Vector3(
-					signPost.transform.position.x, 
-					signPost.transform.position.y, 
-					signPost.transform.position.z), 
-					Quaternion.identity);	
+				Instantiate(signPost, signPost.transform.position, Quaternion.identity);	
 				doorAnimationFinished = true;
 			}
 		}

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Coin : MonoBehaviour 
 {
 	public AudioClip audioClip;
+	public ParticleSystem coinEffect;
 
 	private GameObject gameScore;	// Coins collected
 
@@ -17,6 +19,10 @@ public class Coin : MonoBehaviour
 		// Play audio when collected and then destroy the gameobject (coin)
 		AudioSource.PlayClipAtPoint(audioClip, transform.position);
 		gameScore.GetComponent<GameScore> ().SetScore ();	// Update coins counter (score)
+
+		// Create glow effect by destroying coin
+		ParticleSystem glow = (ParticleSystem)Instantiate(coinEffect, transform.position, Quaternion.identity);
+		Destroy (glow, 2);		// Destroy particle object after 2 sec
 		Destroy (gameObject);
     }
 }
