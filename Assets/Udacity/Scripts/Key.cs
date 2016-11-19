@@ -8,6 +8,7 @@ public class Key : MonoBehaviour
 	public Key keyObject;
 	public Door doorObject;
 	public AudioClip audioClip;
+	public ParticleSystem keyEffect;
 
 	void Start() {
 		// Set the animation speed to 0.3
@@ -26,8 +27,15 @@ public class Key : MonoBehaviour
 			// User collects the key (hasKey at UserBehaviour script set to true)
 			Camera.main.GetComponent<UserBehaviour> ().TakeKey ();
 
+			// Show that key was collected by the user
+			GameObject.Find ("GameStats").GetComponent<GameScore>().SetKeyCollected();	
+
 			// Destroy the key. Check the Unity documentation on how to use Destroy
 			AudioSource.PlayClipAtPoint (audioClip, transform.position);
+
+			// Create glow effect by destroying key
+			ParticleSystem glow = (ParticleSystem)Instantiate(keyEffect, transform.position, Quaternion.Euler(-90f,0f,0f));
+
 			Destroy (gameObject);
 		}
 	}

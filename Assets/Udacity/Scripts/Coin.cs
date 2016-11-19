@@ -8,20 +8,22 @@ public class Coin : MonoBehaviour
 	public AudioClip audioClip;
 	public ParticleSystem coinEffect;
 
-	private GameObject gameScore;	// Coins collected
+	private GameObject gameStats;	// Game score field
 
 	public void Start() {
 		GetComponent<Animator> ().speed = 0.5f;		// Set animation speed to half
-		gameScore = GameObject.Find ("GameStats");	// Get the game score object
+		gameStats = GameObject.Find ("GameStats");	// Get the game score object
 	}
 
     public void OnCoinClicked() {
 		// Play audio when collected and then destroy the gameobject (coin)
 		AudioSource.PlayClipAtPoint(audioClip, transform.position);
-		gameScore.GetComponent<GameScore> ().SetScore ();	// Update coins counter (score)
+		gameStats.GetComponent<GameScore> ().SetScore ();	// Update coins counter (score)
 
 		// Create glow effect by destroying coin
-		ParticleSystem glow = (ParticleSystem)Instantiate(coinEffect, transform.position, Quaternion.identity);
+		ParticleSystem glow = (ParticleSystem)Instantiate(coinEffect, transform.position, Quaternion.Euler(-90.0f,0f,0f));
+
+
 		Destroy (glow, 2);		// Destroy particle object after 2 sec
 		Destroy (gameObject);
     }

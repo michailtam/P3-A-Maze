@@ -49,9 +49,11 @@ public class Door : MonoBehaviour
 				// open door
 				audioSource.clip = audioClips [0];	
 				audioSource.Play ();	// Play audio clip when door is unlocked
+				GetComponent<Renderer> ().material.color = defautlDoorColor;	// Set the door color to the default again
 				locked = false;
-				GetComponent<Renderer> ().material.color = defautlDoorColor;
 			} else {
+				GetComponent<Renderer> ().material.color = Color.red;	// Show that door is locked with red color
+				StartCoroutine (ShowDoorIsLocked ());	
 				audioSource.clip = audioClips [1];	
 				audioSource.Play ();	// Play audio clip when door is locked
 			}
@@ -69,5 +71,11 @@ public class Door : MonoBehaviour
 
 	public void OnExitDoor() {
 		GetComponent<Renderer> ().material.color = defautlDoorColor;
+	}
+
+	// Indicate with changing the door color to red, that the door is blocked
+	IEnumerator ShowDoorIsLocked() {
+		yield return new WaitForSeconds(2);	
+		GetComponent<Renderer> ().material.color = Color.yellow;
 	}
 }
