@@ -28,7 +28,7 @@ public class GameScore : MonoBehaviour {
 	}
 
 	// Show user that he has collected the key
-	public void SetKeyCollected() {
+	public void ShowKeyCollected() {
 		scoreField.enabled = true;
 		StartCoroutine (KeyCollectionDelay());
 	}
@@ -49,7 +49,7 @@ public class GameScore : MonoBehaviour {
 			scoreField.text = "Coins: " + score + "/24" + "     Key: YES";
 		}
 
-		yield return new WaitForSeconds(3.0f);	// Show score for 3 seconds
+		yield return new WaitForSeconds(5.0f);	// Show score for 3 seconds
 		scoreField.enabled = false;
 		scoreField.text = "Coins: " + score + "/24";	// Show only the the coins 
 	}

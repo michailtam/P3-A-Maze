@@ -5,7 +5,7 @@ public class UserBehaviour : MonoBehaviour {
 
 	private bool hasKey = false;	// At startup the user has no key
 
-	// Indicate that user has collected the key
+	// Saves that user has collected the key
 	public void TakeKey() {
 		hasKey = true;	// User has collected the key 
 	}

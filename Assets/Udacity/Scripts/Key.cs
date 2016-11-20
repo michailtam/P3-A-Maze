@@ -24,18 +24,15 @@ public class Key : MonoBehaviour
 		// Check if user stands neer and in front of the key
 		float distance = Mathf.Abs(transform.position.x - Camera.main.transform.position.x);
 		if (distance <= 10.0f) {
-			// User collects the key (hasKey at UserBehaviour script set to true)
-			Camera.main.GetComponent<UserBehaviour> ().TakeKey ();
-
-			// Show that key was collected by the user
-			GameObject.Find ("GameStats").GetComponent<GameScore>().SetKeyCollected();	
-
-			// Destroy the key. Check the Unity documentation on how to use Destroy
+			// Play audio by collecting the key
 			AudioSource.PlayClipAtPoint (audioClip, transform.position);
+			Camera.main.GetComponent<UserBehaviour> ().TakeKey ();	// Save that the user has collected the key
+			GameObject.Find ("GameStats").GetComponent<GameScore>().ShowKeyCollected();	// Show that key was collected by the user
 
-			// Create glow effect by destroying key
-			ParticleSystem glow = (ParticleSystem)Instantiate(keyEffect, transform.position, Quaternion.Euler(-90f,0f,0f));
+			// Create glow effect when the key gets destroyed (the particle system will be rotated so that the particles emit upwards)
+			Instantiate(keyEffect, transform.position, Quaternion.Euler(-90f,0f,0f));
 
+			// Destroy key object immediately
 			Destroy (gameObject);
 		}
 	}

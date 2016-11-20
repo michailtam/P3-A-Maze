@@ -75,7 +75,7 @@ public class Door : MonoBehaviour
 
 	// Indicate with changing the door color to red, that the door is blocked
 	IEnumerator ShowDoorIsLocked() {
-		yield return new WaitForSeconds(2);	
+		yield return new WaitForSeconds(1);		// Show red color for 1 sec
 		GetComponent<Renderer> ().material.color = Color.yellow;
 	}
 }
